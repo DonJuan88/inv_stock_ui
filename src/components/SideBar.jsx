@@ -6,7 +6,7 @@ import {
   MdOutlineContactPage,
 } from "react-icons/md";
 
-import { FaChartLine } from "react-icons/fa";
+import { FaChartLine, FaWarehouse } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 function SideBar() {
@@ -34,6 +34,16 @@ function SideBar() {
         { name: "Customer", link: "/customers" },
       ],
     },
+    {
+      name: "Warehouse and Branchs",
+      link: "#", // Tetap "#" jika submenu digunakan
+      icon: FaWarehouse,
+      submenu: [
+        { name: "Main Office", link: "/location/office" },
+        { name: "Branchs", link: "/location/branchs" },
+      ],
+    },
+
     {
       name: "Reports",
       link: "#", // Tetap "#" jika submenu digunakan

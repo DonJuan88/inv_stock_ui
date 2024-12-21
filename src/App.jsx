@@ -12,6 +12,7 @@ import CustomerIndex from "./Pages/Customer";
 import PurchesaIndex from "./Pages/Purchase";
 import OrderIndex from "./Pages/Order";
 import BranchIndex from "./Pages/Branch";
+import Company from "./Pages/Company";
 
 const App = () => {
   return (
@@ -31,9 +32,10 @@ const App = () => {
               <Route path="/purchases" element={<PurchesaIndex />} />
               <Route path="/orders" element={<OrderIndex />} />
               <Route path="/branchs" element={<BranchIndex />} />
-
               <Route path="/reports/sales" element={<Report1 />} />
               <Route path="/reports/inventory" element={<Report2 />} />
+              <Route path="/location/office" element={<Company />} />
+              <Route path="/location/branchs" element={<BranchIndex />} />,
             </Routes>
           </div>
           {/* </div> */}

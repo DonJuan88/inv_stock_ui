@@ -14,17 +14,18 @@ const CategoryIndex = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const getCategory = async () => {
+    try {
+      const data = await getCategories(); // Call the refactored API service
+      setCategories(data); // Update the state with fetched data
+    } catch (err) {
+      setError(err.message); // Handle errors
+    } finally {
+      setLoading(false); // Set loading to false
+    }
+  };
+
   useEffect(() => {
-    const getCategory = async () => {
-      try {
-        const data = await getCategories(); // Call the refactored API service
-        setCategories(data); // Update the state with fetched data
-      } catch (err) {
-        setError(err.message); // Handle errors
-      } finally {
-        setLoading(false); // Set loading to false
-      }
-    };
     getCategory();
   }, []);
 
@@ -132,7 +133,7 @@ const CategoryIndex = () => {
                     type="text"
                     name="code"
                     className=" bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full py-2.5 px-4"
-                    placeholder="category Code"
+                    placeholder="Category Code"
                     value={formData.code}
                     onChange={handleInputChange}
                     required
@@ -143,7 +144,7 @@ const CategoryIndex = () => {
                     type="text"
                     name="category"
                     className="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full py-2.5 px-4"
-                    placeholder="category Name"
+                    placeholder="Category Name"
                     value={formData.category}
                     onChange={handleInputChange}
                     required
@@ -156,7 +157,7 @@ const CategoryIndex = () => {
                     <button
                       type="button"
                       onClick={handleUpdate}
-                      className="bg-yellow-500 text-white px-3 py-2 rounded"
+                      className="bg-yellow-500 text-white px-3 py-2 rounded-md mx-1"
                     >
                       Update
                     </button>
@@ -164,7 +165,7 @@ const CategoryIndex = () => {
                     <button
                       type="button"
                       onClick={handleCreate}
-                      className="bg-green-500 text-white px-3 py-2 rounded-md mx-2"
+                      className="bg-green-500 text-white px-3 py-2 rounded-md mx-1"
                     >
                       Create
                     </button>
@@ -172,7 +173,7 @@ const CategoryIndex = () => {
                   <button
                     type="button"
                     onClick={handleCancel}
-                    className="bg-gray-500 text-white px-3 py-2 rounded"
+                    className="bg-gray-500 text-white px-3 py-2 rounded-md mx-1"
                   >
                     Cancel
                   </button>
@@ -207,8 +208,8 @@ const CategoryIndex = () => {
                   <td className=" p-2 ">
                     <div className="flex items-center gap-3">
                       <button
-                        className="p-1  rounded-full  group transition-all duration-500  flex item-center"
-                        onClick={() => handleEditClick()}
+                        className="p-1  rounded-full group transition-all duration-500  flex item-center"
+                        onClick={() => handleEditClick(category)}
                       >
                         <svg
                           className="cursor-pointer"
@@ -226,7 +227,7 @@ const CategoryIndex = () => {
                         </svg>
                       </button>
                       <button
-                        onClick={() => deleteThecategory(categories.ID)}
+                        onClick={() => deleteThecategory(category.ID)}
                         className="p-2 rounded-full  group transition-all duration-500  flex item-center"
                       >
                         <svg

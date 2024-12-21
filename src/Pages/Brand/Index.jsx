@@ -7,7 +7,7 @@ import {
 } from "../../inventory/Brand";
 
 function Brand() {
-  const [brand, setBrand] = useState(null);
+  const [brand, setBrand] = useState([]);
   const [formData, setFormData] = useState({ code: "", brand: "" }); // Stores the input value for updating
   const [selectedId, setSelectedId] = useState(null); // ID of item to update
   const [loading, setLoading] = useState(true);
@@ -56,6 +56,7 @@ function Brand() {
       try {
         createBrand(formData);
         setFormData({ code: "", brand: "" });
+        useEffect;
       } catch (error) {
         console.log(error);
         setError("Failed to create item");
@@ -74,7 +75,7 @@ function Brand() {
       try {
         await updateBrand(selectedId, formData);
         setFormData({ code: "", brand: "" });
-        getBrands;
+        useEffect;
         setSelectedId(null);
       } catch (error) {
         console.log(error);
@@ -93,24 +94,26 @@ function Brand() {
     try {
       deleteBrand(id);
       setBrand(brand.filter((data) => data.ID !== id));
+      useEffect;
     } catch (error) {
       console.log(error);
       setError("Deleting process is failed");
     }
   };
 
+  const getAllBrands = async () => {
+    try {
+      const data = await getBrands(); // Call the refactored API service
+      setBrand(data); // Update the state with fetched data
+    } catch (err) {
+      setError(err.message); // Handle errors
+    } finally {
+      setLoading(false); // Set loading to false
+    }
+  };
+
   useEffect(() => {
-    const getBrand = async () => {
-      try {
-        const data = await getBrands(); // Call the refactored API service
-        setBrand(data); // Update the state with fetched data
-      } catch (err) {
-        setError(err.message); // Handle errors
-      } finally {
-        setLoading(false); // Set loading to false
-      }
-    };
-    getBrand();
+    getAllBrands();
   }, []);
 
   //console.log(getBrands());
@@ -155,7 +158,7 @@ function Brand() {
                     <button
                       type="button"
                       onClick={handleUpdate}
-                      className="bg-yellow-500 text-white px-3 py-2 rounded"
+                      className="bg-yellow-500 text-white px-3 py-2 rounded-md mx-1"
                     >
                       Update
                     </button>
@@ -163,7 +166,7 @@ function Brand() {
                     <button
                       type="button"
                       onClick={handleCreate}
-                      className="bg-green-500 text-white px-3 py-2 rounded-md mx-2"
+                      className="bg-green-500 text-white px-3 py-2 rounded-md mx-1"
                     >
                       Create
                     </button>
@@ -171,7 +174,7 @@ function Brand() {
                   <button
                     type="button"
                     onClick={handleCancel}
-                    className="bg-gray-500 text-white px-3 py-2 rounded"
+                    className="bg-gray-500 text-white px-3 py-2 rounded-md mx-1"
                   >
                     Cancel
                   </button>
@@ -183,7 +186,7 @@ function Brand() {
         <h2 className="font-bold mb-2 text-center">Brand List</h2>
         <div className="flex flex-col  h-screen">
           <div className=" flex-grow overflow-auto">
-            <table className="table-fixed relative w-full overflow-auto max-h-fit h-3/5 grid-cols-1 border border-spacing-1 border-collapse rounded-lg scroll-pl-6 snap-y">
+            <table className="table-fixed relative w-full overflow-auto max-h-fit  grid-cols-1 border border-spacing-1 border-collapse rounded-lg scroll-pl-6 snap-y">
               <thead className=" sticky bg-slate-400 text-left">
                 <tr>
                   <th className=""></th>
